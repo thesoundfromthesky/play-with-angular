@@ -1,25 +1,55 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+
+import { NbThemeModule, NbLayoutModule, NbIconLibraries } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
+import { CoreModule } from './core';
+
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    CoreModule.forRoot(),
     NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private readonly iconLibraries: NbIconLibraries) {
+    this.iconLibraries.registerFontPack('solid', {
+      packClass: 'fas',
+      iconClassPrefix: 'fa',
+    });
+    this.iconLibraries.registerFontPack('regular', {
+      packClass: 'far',
+      iconClassPrefix: 'fa',
+    });
+    this.iconLibraries.registerFontPack('light', {
+      packClass: 'fal',
+      iconClassPrefix: 'fa',
+    });
+    this.iconLibraries.registerFontPack('duotone', {
+      packClass: 'fad',
+      iconClassPrefix: 'fa',
+    });
+    this.iconLibraries.registerFontPack('brands', {
+      packClass: 'fab',
+      iconClassPrefix: 'fa',
+    });
+    // this.iconLibraries.setDefaultPack("font-awesome-free");
+    this.iconLibraries.registerSvgPack('misc', {
+      blank: '<svg width="1" height="1"></svg> ',
+    });
+  }
+}
