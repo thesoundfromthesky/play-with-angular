@@ -6,5 +6,15 @@
 */
 {
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./projects/play-with-angular/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/play-with-angular/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/play-with-angular/e2e/tsconfig.json"
+    }
+]
 }

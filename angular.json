@@ -2,5 +2,129 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "play-with-angular": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush"
+        }
+      },
+      "root": "projects/play-with-angular",
+      "sourceRoot": "projects/play-with-angular/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/play-with-angular",
+            "index": "projects/play-with-angular/src/index.html",
+            "main": "projects/play-with-angular/src/main.ts",
+            "polyfills": "projects/play-with-angular/src/polyfills.ts",
+            "tsConfig": "projects/play-with-angular/tsconfig.app.json",
+            // "aot": true,
+            "aot":false,
+            "assets": [
+              "projects/play-with-angular/src/favicon.ico",
+              "projects/play-with-angular/src/assets"
+            ],
+            "styles": [
+              "projects/play-with-angular/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/play-with-angular/src/environments/environment.ts",
+                  "with": "projects/play-with-angular/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "play-with-angular:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "play-with-angular:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "play-with-angular:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/play-with-angular/src/test.ts",
+            "polyfills": "projects/play-with-angular/src/polyfills.ts",
+            "tsConfig": "projects/play-with-angular/tsconfig.spec.json",
+            "karmaConfig": "projects/play-with-angular/karma.conf.js",
+            "assets": [
+              "projects/play-with-angular/src/favicon.ico",
+              "projects/play-with-angular/src/assets"
+            ],
+            "styles": [
+              "projects/play-with-angular/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/play-with-angular/tsconfig.app.json",
+              "projects/play-with-angular/tsconfig.spec.json",
+              "projects/play-with-angular/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/play-with-angular/e2e/protractor.conf.js",
+            "devServerTarget": "play-with-angular:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "play-with-angular:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "play-with-angular"
 }
