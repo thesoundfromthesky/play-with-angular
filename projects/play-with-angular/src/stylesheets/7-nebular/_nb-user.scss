@@ -1,0 +1,9 @@
+nb-user  {
+    .user-name,
+    .user-title {
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+    }
+  }
+  

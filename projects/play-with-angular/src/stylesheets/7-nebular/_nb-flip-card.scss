@@ -1,0 +1,9 @@
+nb-flip-card {
+  overflow: hidden;
+  
+  &:not(.flipped) {
+    .back-container {
+      height: 0;
+    }
+  }
+}
