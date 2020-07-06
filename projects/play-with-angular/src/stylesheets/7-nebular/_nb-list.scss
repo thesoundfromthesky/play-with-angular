@@ -1,0 +1,11 @@
+nb-list {
+  nb-list-item {
+    position: relative;
+    &::before {
+      content: "\2022";
+      position: absolute;
+      top: nb-theme(text-paragraph-font-size);
+      left: 0;
+    }
+  }
+}
