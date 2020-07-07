@@ -1,9 +1,9 @@
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   NbAuthJWTInterceptor,
   NB_AUTH_TOKEN_INTERCEPTOR_FILTER,
   NbPasswordAuthStrategy,
-} from "@nebular/auth";
+} from '@nebular/auth';
 
 export const nbAuthJWTInterceptorProvider = [
   {
@@ -19,16 +19,20 @@ export const nbAuthJWTInterceptorProvider = [
 ];
 
 function useFactoryProvider(nbPasswordAuthStrategy: NbPasswordAuthStrategy) {
-  return (req) => {    
-    const baseUrl = nbPasswordAuthStrategy.getOption("baseEndpoint");
+  return (req: any) => {
+    const baseUrl = nbPasswordAuthStrategy.getOption('baseEndpoint');
 
     const lookupTable = {
-      "GET assets/config/config.dev.json": true,
-      [`POST ${baseUrl}${nbPasswordAuthStrategy.getOption("login.endpoint")}`]: true,
+      'GET assets/config/config.dev.json': true,
       [`POST ${baseUrl}${nbPasswordAuthStrategy.getOption(
-        "refreshToken.endpoint"
+        'login.endpoint'
       )}`]: true,
-      [`POST ${baseUrl}${nbPasswordAuthStrategy.getOption("register.endpoint")}`]: true,
+      [`POST ${baseUrl}${nbPasswordAuthStrategy.getOption(
+        'refreshToken.endpoint'
+      )}`]: true,
+      [`POST ${baseUrl}${nbPasswordAuthStrategy.getOption(
+        'register.endpoint'
+      )}`]: true,
       default: false,
     };
 

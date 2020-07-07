@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { ConfigService } from "../../core/config";
-import { Profile } from "../../shared";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ConfigService } from '../../core/config';
+import { Profile } from '../../shared';
 
 @Injectable()
 export class AuthService {
@@ -14,13 +14,13 @@ export class AuthService {
     return this.http.get(`${this.configService.baseUrl}/api/auth/profile`);
   }
 
-  updateProfile(id, user: Profile) {
+  updateProfile(id: string, user: Profile) {
     return this.http.put(`${this.configService.baseUrl}/api/users/${id}`, user);
   }
 
-  deleteProfile(id) {
+  deleteProfile(id: string) {
     return this.http.delete(`${this.configService.baseUrl}/api/users/${id}`, {
-      responseType: "text",
+      responseType: 'text',
     });
   }
 
@@ -30,7 +30,7 @@ export class AuthService {
     );
   }
 
-  uploadAvatar(formData: FormData) {
+  uploadAvatar(formData: FormData | undefined) {
     return this.http.post(
       `${this.configService.baseUrl}/api/users/avatar`,
       formData

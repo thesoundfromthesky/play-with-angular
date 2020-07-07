@@ -23,7 +23,6 @@ import { AuthService } from '../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HTMLInputEvent } from '../../shared';
 
-
 @Component({
   selector: 'auth-profile',
   templateUrl: './profile.component.html',
@@ -33,8 +32,8 @@ import { HTMLInputEvent } from '../../shared';
 export class ProfileComponent extends NbRegisterComponent implements OnDestroy {
   readonly destroy$ = new Subject<void>();
   isUsername = true;
-  imgSrc: string | ArrayBuffer;
-  formData: FormData;
+  imgSrc: string | ArrayBuffer | undefined | null;
+  formData: FormData | undefined;
 
   constructor(
     private readonly profileFacadeService: ProfileFacadeService,
@@ -66,12 +65,8 @@ export class ProfileComponent extends NbRegisterComponent implements OnDestroy {
     this.isUsername = username ? true : false;
   }
 
-  onFileChange({
-    target: {
-      files: { 0: file },
-      name,
-    },
-  }: HTMLInputEvent) {
+  onFileChange({ target: { files, name } }: HTMLInputEvent) {
+    const file = (files as any)[0].file;
     this.errors = [];
     if (!file) {
       this.imgSrc = undefined;
@@ -91,7 +86,7 @@ export class ProfileComponent extends NbRegisterComponent implements OnDestroy {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.formData = new FormData();
-      this.formData.append(name, file);
+      this.formData.append(name as string, file);
       this.imgSrc = reader.result;
       this.cd.markForCheck();
     };
@@ -102,16 +97,15 @@ export class ProfileComponent extends NbRegisterComponent implements OnDestroy {
   }
 
   getProfile() {
-    this.profileFacadeService
-      .getProfile()
+    this.profileFacadeService.getProfile()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (profile) => {
+        next: (profile:any) => {
           this.user = {
             ...profile,
             login: { ...profile.login },
             name: { ...profile.name },
-            emails: profile.emails.map(({ value }) => ({ value })),
+            emails: profile.emails.map(({ value }:any) => ({ value })),
           };
           this.checkUsername(profile.login.username);
           this.cd.markForCheck();
@@ -119,7 +113,7 @@ export class ProfileComponent extends NbRegisterComponent implements OnDestroy {
       });
   }
 
-  deleteProfile(id) {
+  deleteProfile(id: string) {
     this.profileFacadeService
       .dispatchDeleteProfile(id)
       .pipe(takeUntil(this.destroy$))
@@ -135,9 +129,12 @@ export class ProfileComponent extends NbRegisterComponent implements OnDestroy {
     (this.errorHandler as ErrorService).errorsAsObservable$
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: ({ error }) => {
+        next: (value) => {
+          const { error } = value as any;
           if (Array.isArray(error.message)) {
-            this.errors = error.message.map((e) => this.errors.push(e.message));
+            this.errors = error.message.map((e: any) =>
+              this.errors.push(e.message)
+            );
           } else {
             this.errors = [error.message];
           }
@@ -161,7 +158,7 @@ export class ProfileComponent extends NbRegisterComponent implements OnDestroy {
       .subscribe();
   }
 
-  goToUrl(e, url, media, token): void {
+  goToUrl(e: Event, url: string, media: string, token: string): void {
     if (e) {
       this.document.location.href = `${this.configService.baseUrl}${url}?state=${token}`;
     } else {
