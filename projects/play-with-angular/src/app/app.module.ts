@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NbThemeModule, NbLayoutModule, NbIconLibraries } from '@nebular/theme';
+import { NbThemeModule, NbIconLibraries } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { CoreModule } from './core';
+import { NbAuthModule } from '@nebular/auth';
+import { nbAuthOptions } from './auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,9 +19,9 @@ import { CoreModule } from './core';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NbAuthModule.forRoot(nbAuthOptions),
     CoreModule.forRoot(),
     NbThemeModule.forRoot({ name: 'default' }),
-    NbLayoutModule,
     NbEvaIconsModule,
   ],
   providers: [],
