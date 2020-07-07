@@ -5,7 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NbThemeModule, NbIconLibraries } from '@nebular/theme';
+import {
+  NbThemeModule,
+  NbIconLibraries,
+  NbSidebarModule,
+  NbMenuModule,
+} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { NbAuthModule } from '@nebular/auth';
@@ -15,7 +20,6 @@ import { CoreModule } from './core';
 
 import { NgxsModule } from '@ngxs/store';
 import { ecologyState, ngxsConfig } from './store';
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +32,8 @@ import { ecologyState, ngxsConfig } from './store';
     CoreModule.forRoot(),
     NgxsModule.forRoot(ecologyState, ngxsConfig),
     NbThemeModule.forRoot({ name: 'default' }),
+    NbSidebarModule.forRoot(),
+    NbMenuModule.forRoot(),
     NbEvaIconsModule,
   ],
   providers: [],
