@@ -21,6 +21,8 @@ import { CoreModule } from './core';
 import { NgxsModule } from '@ngxs/store';
 import { ecologyState, ngxsConfig } from './store';
 
+import { LayoutModule } from './layout/layout.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -35,6 +37,7 @@ import { ecologyState, ngxsConfig } from './store';
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
     NbEvaIconsModule,
+    LayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

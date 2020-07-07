@@ -1,0 +1,45 @@
+<!-- <nb-actions>
+  <nb-action
+    icon="menu-2-outline"
+    title="menu"
+    (click)="toggleSidebar()"
+  ></nb-action>
+</nb-actions> -->
+<nb-actions>
+  <nb-action icon="home-outline" link="/" title="home"></nb-action>
+</nb-actions>
+<nb-menu [items]="menuItems" class="nav ml-auto d-none d-sm-block"> </nb-menu>
+<button nbButton type="button" [nbContextMenu]="menuItems" class="ml-auto d-sm-none">
+  <nb-icon icon="menu-2"></nb-icon>
+</button>
+<!-- 
+ <ng-container *ngIf="tokenService.clearExpiredRefreshToken() | async">
+</ng-container>
+<ng-container *ngIf="nbAuthService.isAuthenticatedOrRefresh() | async">
+</ng-container>
+
+<ng-container *ngIf="nbAuthService.onTokenChange() | async as token">
+  <ng-container *ngIf="token.isValid(); else elseBlock">
+    <nb-user
+      [name]="$any(token).getAccessTokenPayload().emails[0].value"
+      [title]="$any(token).getAccessTokenPayload().roles[0]"
+      [nbContextMenu]="userItems"
+      nbContextMenuTag="user-menu"
+    >
+    </nb-user>
+  </ng-container>
+</ng-container>
+
+<ng-template #elseBlock>
+  <nb-actions>
+    <nb-action
+      icon="log-in-outline"
+      title="login"
+      link="/auth/login"
+    ></nb-action>
+    <nb-action
+      icon="person-add-outline"
+      title="sign up"
+      link="/auth/register"
+    ></nb-action> </nb-actions
+></ng-template> -->

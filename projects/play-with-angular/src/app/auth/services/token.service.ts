@@ -1,5 +1,5 @@
-import { Inject, Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { Inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   NbPasswordAuthStrategy,
   NbTokenService,
@@ -7,24 +7,25 @@ import {
   decodeJwtPayload,
   NbAuthOAuth2Token,
   NbAuthService,
-} from "@nebular/auth";
-import { take, concatMap, tap } from "rxjs/operators";
+  NbAuthToken,
+  NbAuthOptions,
+} from '@nebular/auth';
+import { take, concatMap, tap } from 'rxjs/operators';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class TokenService {
   constructor(
     private readonly nbPasswordAuthStrategy: NbPasswordAuthStrategy,
     private readonly nbTokenService: NbTokenService,
     private readonly nbAuthService: NbAuthService,
-    @Inject(NB_AUTH_OPTIONS) protected options,
+    @Inject(NB_AUTH_OPTIONS) protected options: NbAuthOptions,
     private readonly router: Router
-  ) {
-  }
+  ) {}
 
   createToken(token: object) {
-    const module = "login";
+    const module = 'login';
     const createdToken = this.nbPasswordAuthStrategy.createToken(
-      this.nbPasswordAuthStrategy.getOption("token.getter")(
+      this.nbPasswordAuthStrategy.getOption('token.getter')(
         module,
         {
           body: token,
@@ -49,14 +50,14 @@ export class TokenService {
     return (this.nbPasswordAuthStrategy as any).options?.login?.redirect
       ?.success;
   }
-  
+
   clearToken() {
     this.nbTokenService.clear();
   }
 
-  getTokenExpDate(token) {
+  getTokenExpDate(token: string) {
     const decoded = decodeJwtPayload(token);
-    if (decoded && !decoded.hasOwnProperty("exp")) {
+    if (decoded && !decoded.hasOwnProperty('exp')) {
       return null;
     }
     const date = new Date(0);
@@ -64,14 +65,16 @@ export class TokenService {
     return date;
   }
 
-  isTokenExpired(token): boolean {
+  isTokenExpired(token: string): boolean {
     const date = this.getTokenExpDate(token);
     return !date || new Date() > date;
   }
 
-  isRefreshTokenExpired(token: NbAuthOAuth2Token) {
+  isRefreshTokenExpired(token: NbAuthToken) {
     const refreshToken =
-      "getRefreshToken" in token ? token.getRefreshToken() : undefined;
+      'getRefreshToken' in token
+        ? (token as NbAuthOAuth2Token).getRefreshToken()
+        : undefined;
     const isExpired = refreshToken
       ? this.isTokenExpired(refreshToken)
       : undefined;
@@ -80,7 +83,7 @@ export class TokenService {
 
   clearExpiredRefreshToken() {
     return this.nbAuthService.getToken().pipe(
-      tap((token: NbAuthOAuth2Token) => {
+      tap((token: NbAuthToken) => {
         const isExpired = this.isRefreshTokenExpired(token);
         if (isExpired) {
           this.clearToken();
@@ -91,7 +94,7 @@ export class TokenService {
 
   refreshToken() {
     return this.nbAuthService.getToken().pipe(
-      concatMap((data: NbAuthOAuth2Token) => {
+      concatMap((data: NbAuthToken) => {
         return this.nbAuthService.refreshToken(data.getOwnerStrategyName(), {
           token: JSON.parse(data.toString()),
         });

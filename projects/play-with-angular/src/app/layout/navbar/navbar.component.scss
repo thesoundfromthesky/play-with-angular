@@ -1,0 +1,41 @@
+:host {
+  position: sticky;
+  top: 0;
+  background-color: #2c497e;
+  background-image: linear-gradient(
+    to bottom,
+    #2c497e 0%,
+    #1e3762 50%,
+    #122748 100%
+  );
+  z-index: 999;
+
+  display: flex;
+}
+
+navbar-nav {
+  top: 100%;
+  right: 0;
+}
+
+.dropdown:hover {
+  > navbar-nav,
+  > navbar-nav ::ng-deep > dropdown > dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  > .hamburger {
+    div:nth-child(1) {
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
+    }
+    div:nth-child(2) {
+      opacity: 0;
+    }
+    div:nth-child(3) {
+      top: 50%;
+      transform: translateY(-50%) rotate(-45deg);
+    }
+  }
+}

@@ -1,0 +1,21 @@
+// @import "~@nebular/theme/styles/global/breakpoints";
+
+// nb-menu ::ng-deep {
+//   .menu-items {
+//     display: flex;
+
+//     .menu-item:not(:last-child) {
+//       border-bottom: none;
+//       border-right: 1px solid #edf1f7;
+//     }
+//   }
+// }
+
+// nb-user ::ng-deep {
+//   .user-name,
+//   .user-title {
+//     @include media-breakpoint-down(sm) {
+//       display: none;
+//     }
+//   }
+// }
