@@ -8,9 +8,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbThemeModule, NbIconLibraries } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
-import { CoreModule } from './core';
 import { NbAuthModule } from '@nebular/auth';
 import { nbAuthOptions } from './auth';
+
+import { CoreModule } from './core';
+
+import { NgxsModule } from '@ngxs/store';
+import { ecologyState, ngxsConfig } from './store';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +26,7 @@ import { nbAuthOptions } from './auth';
     BrowserAnimationsModule,
     NbAuthModule.forRoot(nbAuthOptions),
     CoreModule.forRoot(),
+    NgxsModule.forRoot(ecologyState, ngxsConfig),
     NbThemeModule.forRoot({ name: 'default' }),
     NbEvaIconsModule,
   ],
