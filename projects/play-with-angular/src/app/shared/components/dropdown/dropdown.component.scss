@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  & ::ng-deep {
+    > dropdown-menu {
+      bottom: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  &:hover ::ng-deep > dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

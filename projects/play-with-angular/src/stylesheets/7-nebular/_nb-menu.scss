@@ -1,0 +1,14 @@
+nb-menu {
+  text-transform: uppercase;
+}
+
+nb-menu.nav {
+  .menu-items {
+    display: flex;
+
+    .menu-item:not(:last-child) {
+      border-bottom: none;
+      border-right: 1px solid #edf1f7;
+    }
+  }
+}
